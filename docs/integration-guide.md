@@ -203,10 +203,12 @@ const { data: isAllowed, isLoading } = useHasChainPermission(address ?? zeroAddr
 ### 4.4 Network-mismatch handling
 
 ```tsx
-const chainId = useChainId();
+const { isConnected, chainId } = useAccount();
 const isWrongNetwork = isConnected && chainId !== 153;
 const { switchChain } = useSwitchChain();
 ```
+
+**Pitfall:** don't use wagmi's global `useChainId()` hook for this check. `useChainId()` reads a value that wagmi only updates when the wallet's *actual* chain is one of the chains listed in `createConfig({ chains: [...] })` — by design, wagmi won't "switch over to" an unconfigured chain internally. Since this app only configures Redbelly Testnet, `useChainId()` stays silently pinned at `153` even when the wallet is genuinely on a different network, so a mismatch banner built on it never appears. `useAccount().chainId`, by contrast, is the raw per-connection value that updates on every real `chainChanged` event regardless of which chains are configured — use that for any check that needs to know what the wallet is *actually* connected to.
 
 Helper text follows a strict precedence — not connected → wrong network → KYC required — so the user is always shown the actual blocking reason rather than a misleading "complete KYC" prompt while sitting on the wrong chain. Mint and Transfer are disabled independently by `isWrongNetwork`, separately from the KYC check.
 
