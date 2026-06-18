@@ -1,0 +1,15 @@
+{
+  "network": "redbellyTestnet",
+  "chainId": 153,
+  "contractName": "SybilProofToken",
+  "address": "0x7e489f46098bcdfbe3df9a171cc7a82a75768b08",
+  "txHash": "0xfe2fb7ef017ccca99e385bdb0b186c034b571f9dd0f5d32f62eb3c7d4ef000c3",
+  "blockNumber": "2984930",
+  "abiPath": "artifacts/contracts/SybilProofToken.sol/SybilProofToken.json",
+  "constructorArgs": {
+    "name": "SybilProof Token",
+    "symbol": "SPT",
+    "eligibilityContract": "0x519ba1b48D571FD92FAF6FE4D20fe74Ca435B690"
+  },
+  "deployedAt": "2026-06-17T16:27:18.650Z"
+}
